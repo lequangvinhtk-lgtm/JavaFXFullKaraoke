@@ -1,0 +1,9 @@
+a1|hahah|st|cc
+S001|Nơi này có anh|Sơn Tùng M-TP|Pop
+S002|Chúng ta của tương lai|Sơn Tùng M-TP|Pop
+S003|Em của ngày hôm qua|Sơn Tùng M-TP|Pop
+S004|Sóng gió|Jack, K-ICM|Ballad
+S005|Bạc phận|Jack, K-ICM|Ballad
+S006|Có chắc yêu là đây|Sơn Tùng M-TP|Pop
+S007|Một bước yêu vạn dặm đau|Mr. Siro|Ballad
+S008|Anh nhớ em người yêu cũ|Minh Vương M4U|Ballad
