@@ -69,6 +69,10 @@ public class ClientHandler implements Runnable {
                 return handleLogin(request);
             }
 
+            if ("REGISTER".equals(command)) {
+                return handleRegister(request);
+            }
+
             if (currentUser == null) {
                 return Response.fail("Bạn phải đăng nhập trước khi sử dụng hệ thống.");
             }
@@ -176,6 +180,41 @@ public class ClientHandler implements Runnable {
 
         this.currentUser = user;
         return Response.ok("Đăng nhập thành công", user);
+    }
+
+    private Response handleRegister(Request request) throws Exception {
+        String[] data = (String[]) request.getData();
+
+        if (data.length < 2) {
+            return Response.fail("Thiếu tên đăng nhập hoặc mật khẩu.");
+        }
+
+        String username = data[0].trim();
+        String password = data[1].trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            return Response.fail("Tên đăng nhập và mật khẩu không được để trống.");
+        }
+
+        if (username.length() < 4) {
+            return Response.fail("Tên đăng nhập phải có ít nhất 4 ký tự.");
+        }
+
+        if (password.length() < 6) {
+            return Response.fail("Mật khẩu phải có ít nhất 6 ký tự.");
+        }
+
+        if (userDAO.usernameExists(username)) {
+            return Response.fail("Tên đăng nhập đã tồn tại.");
+        }
+
+        boolean success = userDAO.registerUser(username, password);
+
+        if (success) {
+            return Response.ok("Đăng ký thành công. Bạn có thể đăng nhập.");
+        }
+
+        return Response.fail("Đăng ký thất bại.");
     }
 
     private void requireAdmin() {

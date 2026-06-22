@@ -296,3 +296,85 @@
     -fx-text-fill: #1d4ed8;
     -fx-font-weight: bold;
 }
+
+/* ================= LOGIN SCREEN NEW ================= */
+
+.login-root {
+    -fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b, #334155);
+    -fx-padding: 35;
+}
+
+.login-card {
+    -fx-background-color: rgba(255, 255, 255, 0.98);
+    -fx-background-radius: 24;
+    -fx-padding: 34 38 34 38;
+    -fx-pref-width: 430;
+    -fx-max-width: 430;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.28), 24, 0.2, 0, 8);
+}
+
+.login-logo {
+    -fx-font-size: 42px;
+}
+
+.login-title {
+    -fx-font-size: 27px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #0f172a;
+}
+
+.login-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-line-spacing: 2;
+}
+
+.login-input {
+    -fx-pref-height: 42;
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 0 14 0 14;
+    -fx-font-size: 13px;
+}
+
+.login-input:focused {
+    -fx-border-color: #2563eb;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.22), 8, 0.1, 0, 0);
+}
+
+.login-primary-button {
+    -fx-pref-height: 42;
+    -fx-background-color: linear-gradient(to right, #2563eb, #1d4ed8);
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.login-primary-button:hover {
+    -fx-background-color: linear-gradient(to right, #1d4ed8, #1e40af);
+}
+
+.login-link-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2563eb;
+    -fx-font-weight: 700;
+    -fx-cursor: hand;
+    -fx-padding: 4 8 4 8;
+}
+
+.login-link-button:hover {
+    -fx-text-fill: #1e40af;
+    -fx-underline: true;
+}
+
+.login-message {
+    -fx-font-size: 12px;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}

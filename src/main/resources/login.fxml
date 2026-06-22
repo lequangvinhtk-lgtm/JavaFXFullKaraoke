@@ -10,43 +10,57 @@
 
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.vku.karaoke.client.controller.LoginController"
-           styleClass="root-box">
+           styleClass="login-root">
 
     <VBox alignment="CENTER" spacing="14" styleClass="login-card">
-        <Label text="🎤" styleClass="app-logo"/>
 
-        <Label text="KARAOKE MANAGER" styleClass="title"/>
+        <Label text="🎤" styleClass="login-logo"/>
 
-        <Label text="Đăng nhập để quản lý bài hát, playlist và lịch sử tìm kiếm"
-               styleClass="subtitle"
+        <Label fx:id="lblTitle"
+               text="KARAOKE MANAGER"
+               styleClass="login-title"/>
+
+        <Label fx:id="lblSubtitle"
+               text="Đăng nhập để quản lý bài hát, playlist và lịch sử tìm kiếm"
+               styleClass="login-subtitle"
                wrapText="true"
-               maxWidth="340"/>
+               maxWidth="360"/>
 
-        <Region prefHeight="6"/>
+        <Region prefHeight="8"/>
 
         <TextField fx:id="txtUsername"
                    promptText="Tên đăng nhập"
-                   maxWidth="330"/>
+                   maxWidth="340"
+                   styleClass="login-input"/>
 
         <PasswordField fx:id="txtPassword"
                        promptText="Mật khẩu"
-                       maxWidth="330"/>
+                       maxWidth="340"
+                       styleClass="login-input"/>
 
-        <Button text="Đăng nhập"
-                onAction="#handleLogin"
-                maxWidth="330"
-                styleClass="primary-button"/>
+        <PasswordField fx:id="txtConfirmPassword"
+                       promptText="Nhập lại mật khẩu"
+                       maxWidth="340"
+                       visible="false"
+                       managed="false"
+                       styleClass="login-input"/>
 
-        <Label fx:id="lblError"
-               styleClass="error-label"
+        <Button fx:id="btnSubmit"
+                text="Đăng nhập"
+                onAction="#handleSubmit"
+                maxWidth="340"
+                styleClass="login-primary-button"/>
+
+        <Button fx:id="btnSwitchMode"
+                text="Chưa có tài khoản? Đăng ký"
+                onAction="#handleSwitchMode"
+                maxWidth="340"
+                styleClass="login-link-button"/>
+
+        <Label fx:id="lblMessage"
                wrapText="true"
-               maxWidth="330"/>
+               maxWidth="340"
+               styleClass="login-message"/>
 
-        <Region prefHeight="6"/>
-
-        <Label text="Tài khoản mẫu: admin/admin123 hoặc user/user123"
-               styleClass="hint"
-               wrapText="true"
-               maxWidth="330"/>
     </VBox>
 </StackPane>

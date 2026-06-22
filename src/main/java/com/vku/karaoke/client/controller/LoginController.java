@@ -10,12 +10,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController {
+
+    @FXML
+    private Label lblTitle;
+
+    @FXML
+    private Label lblSubtitle;
+
     @FXML
     private TextField txtUsername;
 
@@ -23,15 +31,48 @@ public class LoginController {
     private PasswordField txtPassword;
 
     @FXML
-    private Label lblError;
+    private PasswordField txtConfirmPassword;
 
     @FXML
-    void handleLogin(ActionEvent event) {
+    private Label lblMessage;
+
+    @FXML
+    private Button btnSubmit;
+
+    @FXML
+    private Button btnSwitchMode;
+
+    private boolean registerMode = false;
+
+    @FXML
+    public void initialize() {
+        showLoginMode();
+    }
+
+    @FXML
+    void handleSubmit(ActionEvent event) {
+        if (registerMode) {
+            handleRegister();
+        } else {
+            handleLogin(event);
+        }
+    }
+
+    @FXML
+    void handleSwitchMode(ActionEvent event) {
+        if (registerMode) {
+            showLoginMode();
+        } else {
+            showRegisterMode();
+        }
+    }
+
+    private void handleLogin(ActionEvent event) {
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            lblError.setText("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
+            showError("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
             return;
         }
 
@@ -46,7 +87,7 @@ public class LoginController {
             ));
 
             if (!response.isSuccess()) {
-                lblError.setText(response.getMessage());
+                showError(response.getMessage());
                 connection.close();
                 return;
             }
@@ -64,12 +105,110 @@ public class LoginController {
             stage.setTitle("Hệ thống quản lý bài hát Karaoke");
             stage.setScene(scene);
             stage.centerOnScreen();
+
         } catch (Exception e) {
-            lblError.setText("Không kết nối được Server. Hãy chạy MainServer trước.");
+            showError("Không kết nối được Server. Hãy chạy MainServer trước.");
             if (connection != null) {
                 connection.close();
             }
             e.printStackTrace();
         }
+    }
+
+    private void handleRegister() {
+        String username = txtUsername.getText().trim();
+        String password = txtPassword.getText().trim();
+        String confirmPassword = txtConfirmPassword.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            showError("Vui lòng nhập đầy đủ thông tin đăng ký.");
+            return;
+        }
+
+        if (username.length() < 4) {
+            showError("Tên đăng nhập phải có ít nhất 4 ký tự.");
+            return;
+        }
+
+        if (password.length() < 6) {
+            showError("Mật khẩu phải có ít nhất 6 ký tự.");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            showError("Mật khẩu nhập lại không khớp.");
+            return;
+        }
+
+        ClientConnection connection = null;
+
+        try {
+            connection = new ClientConnection();
+
+            Response response = connection.send(new Request(
+                    "REGISTER",
+                    new String[]{username, password}
+            ));
+
+            if (response.isSuccess()) {
+                showSuccess(response.getMessage());
+                txtPassword.clear();
+                txtConfirmPassword.clear();
+                showLoginMode();
+                txtUsername.setText(username);
+            } else {
+                showError(response.getMessage());
+            }
+
+        } catch (Exception e) {
+            showError("Không kết nối được Server. Hãy chạy MainServer trước.");
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
+
+    private void showLoginMode() {
+        registerMode = false;
+
+        lblTitle.setText("KARAOKE MANAGER");
+        lblSubtitle.setText("Đăng nhập để quản lý bài hát, playlist và lịch sử tìm kiếm");
+
+        txtConfirmPassword.setVisible(false);
+        txtConfirmPassword.setManaged(false);
+
+        btnSubmit.setText("Đăng nhập");
+        btnSwitchMode.setText("Chưa có tài khoản? Đăng ký");
+
+        lblMessage.setText("");
+    }
+
+    private void showRegisterMode() {
+        registerMode = true;
+
+        lblTitle.setText("ĐĂNG KÝ TÀI KHOẢN");
+        lblSubtitle.setText("Tạo tài khoản User để sử dụng hệ thống Karaoke");
+
+        txtConfirmPassword.setVisible(true);
+        txtConfirmPassword.setManaged(true);
+
+        btnSubmit.setText("Đăng ký");
+        btnSwitchMode.setText("Đã có tài khoản? Đăng nhập");
+
+        lblMessage.setText("");
+        txtPassword.clear();
+        txtConfirmPassword.clear();
+    }
+
+    private void showError(String message) {
+        lblMessage.setStyle("-fx-text-fill: #dc2626; -fx-font-weight: bold;");
+        lblMessage.setText(message);
+    }
+
+    private void showSuccess(String message) {
+        lblMessage.setStyle("-fx-text-fill: #16a34a; -fx-font-weight: bold;");
+        lblMessage.setText(message);
     }
 }
