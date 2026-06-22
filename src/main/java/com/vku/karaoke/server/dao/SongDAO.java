@@ -124,4 +124,35 @@ public class SongDAO {
                 rs.getString("genre")
         );
     }
+    /*
+============================================================
+SONG DAO - THAO TÁC DATABASE CHO BÀI HÁT
+============================================================
+
+DAO nghĩa là Data Access Object (đối tượng truy cập dữ liệu).
+Class này chuyên thao tác bảng songs trong MySQL.
+
+Kiến thức áp dụng:
+- JDBC.
+- PreparedStatement.
+- ResultSet.
+- CRUD.
+
+CRUD nghĩa là:
+- Create: thêm bài hát.
+- Read: xem/tìm kiếm bài hát.
+- Update: sửa bài hát.
+- Delete: xóa bài hát.
+
+Các hàm chính:
+- getAllSongs(): lấy tất cả bài hát.
+- searchSongs(): tìm kiếm bài hát.
+- addSong(): thêm bài hát.
+- updateSong(): sửa bài hát.
+- deleteSong(): xóa bài hát.
+- upsertSong(): thêm mới hoặc cập nhật khi import TXT.
+
+Câu trả lời khi thầy hỏi:
+"SongDAO là lớp xử lý dữ liệu bài hát với database. Em tách riêng DAO để giao diện và server không viết SQL trực tiếp."
+*/
 }

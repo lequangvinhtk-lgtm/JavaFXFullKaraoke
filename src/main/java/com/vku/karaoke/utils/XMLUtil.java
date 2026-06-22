@@ -50,3 +50,33 @@ public class XMLUtil {
         parent.appendChild(element);
     }
 }
+
+
+/*
+============================================================
+XML UTIL - XUẤT DANH SÁCH BÀI HÁT RA XML
+============================================================
+
+Class này áp dụng XML DOM để tạo file XML.
+
+Kiến thức áp dụng:
+- Document: tài liệu XML.
+- Element: thẻ XML.
+- Transformer: ghi XML ra file.
+- DOM: biểu diễn XML dạng cây.
+
+Chức năng:
+exportSongsToXML() xuất danh sách bài hát ra backup_songs.xml.
+
+Cấu trúc XML:
+<karaokeSongs>
+    <song id="S001">
+        <title>...</title>
+        <artist>...</artist>
+        <genre>...</genre>
+    </song>
+</karaokeSongs>
+
+Câu trả lời khi thầy hỏi:
+"Em dùng XML để export danh sách bài hát ra file XML, giúp sao lưu hoặc chia sẻ dữ liệu ở dạng có cấu trúc."
+*/

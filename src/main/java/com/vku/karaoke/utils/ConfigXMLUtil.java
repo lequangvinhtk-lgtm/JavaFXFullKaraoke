@@ -95,3 +95,31 @@ public class ConfigXMLUtil {
         root.appendChild(element);
     }
 }
+
+/*
+============================================================
+CONFIG XML UTIL - ĐỌC/GHI FILE CẤU HÌNH XML
+============================================================
+
+Class này dùng XML để lưu cấu hình hệ thống.
+
+File config.xml lưu:
+- serverHost: địa chỉ server.
+- serverPort: cổng server.
+- dbHost: địa chỉ database.
+- dbPort: cổng database.
+- dbName: tên database.
+- dbUser: tài khoản database.
+- dbPassword: mật khẩu database.
+
+Lợi ích:
+Nếu đổi port server hoặc mật khẩu database thì chỉ cần sửa config.xml,
+không cần sửa code Java.
+
+Class sử dụng ConfigXMLUtil:
+- DBUtil: đọc thông tin database để kết nối MySQL.
+- ClientConnection: đọc serverHost và serverPort để kết nối server.
+
+Câu trả lời khi thầy hỏi:
+"Em dùng XML để lưu cấu hình hệ thống. Cách này giúp chương trình linh hoạt hơn vì đổi cấu hình không cần sửa code."
+*/

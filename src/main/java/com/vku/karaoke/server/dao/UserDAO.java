@@ -69,3 +69,30 @@ public class UserDAO {
         }
     }
 }
+
+
+/*
+============================================================
+USER DAO - ĐĂNG NHẬP VÀ ĐĂNG KÝ TÀI KHOẢN
+============================================================
+
+Class này thao tác với bảng users.
+
+Kiến thức áp dụng:
+- JDBC.
+- Security.
+- Password hashing.
+- Register/Login.
+
+Các hàm chính:
+- authenticate(): đăng nhập.
+- usernameExists(): kiểm tra username đã tồn tại chưa.
+- registerUser(): đăng ký tài khoản mới.
+
+Điểm bảo mật:
+Mật khẩu người dùng nhập sẽ được hash bằng SHA-256 trước khi so sánh/lưu vào database.
+Không lưu mật khẩu dạng plain text (văn bản thường).
+
+Câu trả lời khi thầy hỏi:
+"UserDAO xử lý đăng nhập và đăng ký. Mật khẩu được hash bằng SHA-256 rồi mới so sánh với password_hash trong database."
+*/

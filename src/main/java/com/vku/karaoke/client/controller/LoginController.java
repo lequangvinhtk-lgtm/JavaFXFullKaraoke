@@ -212,3 +212,35 @@ public class LoginController {
         lblMessage.setText(message);
     }
 }
+
+
+
+/*
+============================================================
+LOGIN CONTROLLER - ĐĂNG NHẬP VÀ ĐĂNG KÝ
+============================================================
+
+Class này điều khiển màn hình đăng nhập/đăng ký JavaFX.
+
+Kiến thức áp dụng:
+- JavaFX Controller.
+- Networking: gửi Request LOGIN/REGISTER lên server.
+- Security: đăng nhập, đăng ký tài khoản.
+- Validation: kiểm tra dữ liệu nhập.
+
+Luồng đăng nhập:
+1. User nhập username/password.
+2. Client tạo Request("LOGIN", data).
+3. ClientConnection gửi request lên server.
+4. Server kiểm tra tài khoản trong database.
+5. Nếu đúng, client mở Dashboard.
+
+Luồng đăng ký:
+1. User nhập username/password/confirm password.
+2. Client kiểm tra dữ liệu.
+3. Client gửi Request("REGISTER", data).
+4. Server lưu tài khoản mới vào database với role USER.
+
+Câu trả lời khi thầy hỏi:
+"LoginController không xử lý database trực tiếp. Nó chỉ nhận dữ liệu từ giao diện và gửi request lên server."
+*/

@@ -449,3 +449,35 @@ public class KaraokeDashboardController {
         });
     }
 }
+
+
+/*
+============================================================
+KARAOKE DASHBOARD CONTROLLER - GIAO DIỆN CHÍNH
+============================================================
+
+Class này điều khiển giao diện chính sau khi đăng nhập.
+
+Chức năng:
+- Hiển thị danh sách bài hát.
+- Tìm kiếm bài hát.
+- Thêm/sửa/xóa bài hát.
+- Import/Export TXT.
+- Export XML.
+- Quản lý playlist.
+- Xem/xóa lịch sử tìm kiếm.
+- Phân quyền nút chức năng theo Admin/User.
+
+Kiến thức áp dụng:
+- JavaFX TableView/ListView.
+- Networking: gửi Request lên server.
+- Security: kiểm tra role để disable nút của User thường.
+
+Điểm quan trọng:
+Controller không thao tác database trực tiếp.
+Mọi thao tác đều gửi Request lên server.
+Server mới gọi DAO để làm việc với database.
+
+Câu trả lời khi thầy hỏi:
+"DashboardController là phần giao diện. Nó không tự kết nối database mà gửi yêu cầu lên server, đúng mô hình Client-Server."
+*/

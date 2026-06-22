@@ -27,3 +27,26 @@ public class DBUtil {
         return DriverManager.getConnection(url, config.getDbUser(), config.getDbPassword());
     }
 }
+/*
+============================================================
+DBUTIL - KẾT NỐI DATABASE BẰNG JDBC
+============================================================
+
+Class này dùng để tạo kết nối từ Java tới MySQL.
+
+Kiến thức áp dụng:
+JDBC (Java Database Connectivity - kết nối Java với cơ sở dữ liệu).
+
+Câu lệnh quan trọng:
+- Class.forName("com.mysql.cj.jdbc.Driver"): nạp driver MySQL.
+- DriverManager.getConnection(url, user, password): tạo kết nối database.
+
+Luồng chạy:
+1. Đọc config.xml bằng ConfigXMLUtil.
+2. Lấy dbHost, dbPort, dbName, dbUser, dbPassword.
+3. Tạo chuỗi URL kết nối MySQL.
+4. Trả về Connection cho các DAO sử dụng.
+
+Câu trả lời khi thầy hỏi:
+"DBUtil là lớp trung gian tạo kết nối JDBC. Các DAO không tự viết lại kết nối mà gọi DBUtil.getConnection(), giúp code gọn và dễ bảo trì."
+*/

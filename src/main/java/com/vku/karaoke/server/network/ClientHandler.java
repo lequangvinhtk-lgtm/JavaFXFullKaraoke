@@ -17,6 +17,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 
+
 public class ClientHandler implements Runnable {
     private final Socket socket;
     private ObjectOutputStream out;
@@ -34,6 +35,16 @@ public class ClientHandler implements Runnable {
     }
 
     @Override
+    /*
+Hàm run() là hàm chạy trong luồng riêng của từng client.
+
+Trong hàm này:
+1. Tạo ObjectOutputStream để gửi dữ liệu về client.
+2. Tạo ObjectInputStream để nhận dữ liệu từ client.
+3. Chạy vòng lặp while(true) để liên tục nhận Request.
+4. Mỗi Request được xử lý bằng handleRequest().
+5. Sau khi xử lý, server gửi Response về client.
+*/
     public void run() {
         try {
             out = new ObjectOutputStream(socket.getOutputStream());
@@ -60,6 +71,18 @@ public class ClientHandler implements Runnable {
             close();
         }
     }
+
+    /*
+handleRequest() là hàm phân loại yêu cầu từ client.
+
+Client gửi lên một Request có command.
+Ví dụ:
+- command = "LOGIN" thì gọi handleLogin().
+- command = "SEARCH" thì gọi SongDAO.searchSongs().
+- command = "ADD" thì kiểm tra Admin rồi gọi SongDAO.addSong().
+
+Đây là trung tâm xử lý chức năng ở phía server.
+*/
 
     private Response handleRequest(Request request) {
         try {
@@ -217,6 +240,14 @@ public class ClientHandler implements Runnable {
         return Response.fail("Đăng ký thất bại.");
     }
 
+    /*
+requireAdmin() dùng để kiểm tra phân quyền.
+
+Nếu currentUser không phải ADMIN thì server từ chối thao tác.
+Điểm quan trọng: kiểm tra quyền ở server an toàn hơn chỉ khóa nút trên giao diện.
+Vì nếu user tự gửi request trái phép, server vẫn chặn lại.
+*/
+
     private void requireAdmin() {
         if (currentUser == null || !currentUser.isAdmin()) {
             throw new SecurityException("Bạn không có quyền ADMIN để thực hiện chức năng này.");
@@ -250,3 +281,49 @@ public class ClientHandler implements Runnable {
         }
     }
 }
+
+
+/*
+============================================================
+CLIENT HANDLER - XỬ LÝ REQUEST TỪ CLIENT
+============================================================
+
+Class này xử lý một client kết nối tới server.
+
+Kiến thức áp dụng:
+1. Multithreading:
+   - ClientHandler implements Runnable.
+   - Hàm run() là phần chạy trong luồng riêng.
+
+2. Networking:
+   - Nhận Request từ client bằng ObjectInputStream.
+   - Gửi Response về client bằng ObjectOutputStream.
+
+3. Security:
+   - Kiểm tra đăng nhập.
+   - Kiểm tra quyền Admin bằng requireAdmin().
+
+4. JDBC:
+   - Gọi các DAO như SongDAO, UserDAO, PlaylistDAO, SearchHistoryDAO để thao tác database.
+
+Luồng chạy:
+1. Client gửi Request lên server.
+2. ClientHandler đọc Request.
+3. handleRequest() kiểm tra command.
+4. Tùy command mà gọi DAO hoặc Util tương ứng.
+5. Server trả Response về client.
+
+Các command quan trọng:
+- LOGIN: đăng nhập.
+- REGISTER: đăng ký tài khoản.
+- GET_ALL: lấy tất cả bài hát.
+- SEARCH: tìm kiếm bài hát.
+- ADD/UPDATE/DELETE: thêm/sửa/xóa bài hát, chỉ Admin.
+- EXPORT_TXT / IMPORT_TXT: ghi/đọc file TXT.
+- EXPORT_XML: xuất XML.
+- PLAYLIST_CREATE / PLAYLIST_ADD_SONG: quản lý playlist.
+- GET_HISTORY / CLEAR_HISTORY: lịch sử tìm kiếm.
+
+Câu trả lời khi thầy hỏi:
+"ClientHandler là nơi server nhận yêu cầu từ client, xử lý chức năng và trả kết quả về. Vì mỗi ClientHandler chạy trong một luồng riêng nên nhiều client có thể dùng cùng lúc."
+*/

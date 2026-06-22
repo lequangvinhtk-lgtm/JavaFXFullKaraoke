@@ -131,3 +131,31 @@ public class PlaylistDAO {
         return songs;
     }
 }
+
+/*
+============================================================
+PLAYLIST DAO - QUẢN LÝ PLAYLIST
+============================================================
+
+Class này thao tác với bảng playlists và playlist_songs.
+
+Kiến thức áp dụng:
+- JDBC.
+- Quan hệ giữa các bảng trong database.
+- User chỉ quản lý playlist của chính mình.
+
+Các bảng liên quan:
+- playlists: lưu thông tin playlist.
+- playlist_songs: lưu bài hát thuộc playlist.
+
+Các hàm chính:
+- findByUser(): lấy playlist của user.
+- createPlaylist(): tạo playlist.
+- deletePlaylist(): xóa playlist.
+- addSongToPlaylist(): thêm bài hát vào playlist.
+- removeSongFromPlaylist(): xóa bài hát khỏi playlist.
+- getSongsInPlaylist(): lấy danh sách bài hát trong playlist.
+
+Câu trả lời khi thầy hỏi:
+"Playlist được lưu trong database. Mỗi playlist gắn với một user_id, nên user chỉ xem và sửa playlist của tài khoản mình."
+*/
